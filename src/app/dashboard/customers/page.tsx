@@ -1,5 +1,5 @@
+'use client';
 import * as React from 'react';
-import type { Metadata } from 'next';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -7,13 +7,12 @@ import { Download as DownloadIcon } from '@phosphor-icons/react/dist/ssr/Downloa
 import { Plus as PlusIcon } from '@phosphor-icons/react/dist/ssr/Plus';
 import { Upload as UploadIcon } from '@phosphor-icons/react/dist/ssr/Upload';
 import dayjs from 'dayjs';
-
-import { config } from '@/config';
-import { CustomersFilters } from '@/components/dashboard/customer/customers-filters';
-import { CustomersTable } from '@/components/dashboard/customer/customers-table';
-import type { Customer } from '@/components/dashboard/customer/customers-table';
-
-export const metadata = { title: `Customers | Dashboard | ${config.site.name}` } satisfies Metadata;
+import { UploadModal } from '@/components/common/UploadModal';
+import { CustomersFilters } from '@/components/pages/customer/customers-filters';
+import { CustomersTable } from '@/components/pages/customer/customers-table';
+import type { Customer } from '@/components/pages/customer/customers-table';
+import { exportToCSV } from '@/utils/exportToCSV';
+import { margin } from '@mui/system';
 
 const customers = [
   {
@@ -70,7 +69,6 @@ const customers = [
     address: { city: 'Atlanta', country: 'USA', state: 'Georgia', street: '1865 Pleasant Hill Road' },
     createdAt: dayjs().subtract(2, 'hours').toDate(),
   },
-
   {
     id: 'USR-004',
     name: 'Penjani Inyene',
@@ -111,27 +109,37 @@ const customers = [
 
 export default function Page(): React.JSX.Element {
   const page = 0;
-  const rowsPerPage = 5;
+  const rowsPerPage = 10;
+  const [open, setOpen] = React.useState(false);
 
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const paginatedCustomers = applyPagination(customers, page, rowsPerPage);
 
   return (
     <Stack spacing={3}>
       <Stack direction="row" spacing={3}>
         <Stack spacing={1} sx={{ flex: '1 1 auto' }}>
-          <Typography variant="h4">Customers</Typography>
+          <Typography variant="h4">Candidatos</Typography>
           <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
             <Button color="inherit" startIcon={<UploadIcon fontSize="var(--icon-fontSize-md)" />}>
               Import
             </Button>
-            <Button color="inherit" startIcon={<DownloadIcon fontSize="var(--icon-fontSize-md)" />}>
+            <Button 
+              color="inherit" 
+              startIcon={<DownloadIcon fontSize="var(--icon-fontSize-md)" />}
+              onClick={() => exportToCSV(customers, 'candidates')}
+            >
               Export
             </Button>
           </Stack>
         </Stack>
         <div>
-          <Button startIcon={<PlusIcon fontSize="var(--icon-fontSize-md)" />} variant="contained">
-            Add
+          <Button startIcon={<PlusIcon fontSize="var(--icon-fontSize-md)" />} variant="contained" onClick={handleOpen}>
+            Agregar Candidato IA
+          </Button>
+          <Button startIcon={<PlusIcon fontSize="var(--icon-fontSize-md)" />} variant="contained" onClick={handleOpen}>
+            Agregar Candidato
           </Button>
         </div>
       </Stack>
@@ -142,6 +150,7 @@ export default function Page(): React.JSX.Element {
         rows={paginatedCustomers}
         rowsPerPage={rowsPerPage}
       />
+      <UploadModal open={open} onClose={handleClose} />
     </Stack>
   );
 }

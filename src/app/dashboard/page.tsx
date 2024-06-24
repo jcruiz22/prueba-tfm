@@ -4,14 +4,14 @@ import Grid from '@mui/material/Unstable_Grid2';
 import dayjs from 'dayjs';
 
 import { config } from '@/config';
-import { Budget } from '@/components/dashboard/overview/budget';
-import { LatestOrders } from '@/components/dashboard/overview/latest-orders';
-import { LatestProducts } from '@/components/dashboard/overview/latest-products';
-import { Sales } from '@/components/dashboard/overview/sales';
-import { TasksProgress } from '@/components/dashboard/overview/tasks-progress';
-import { TotalCustomers } from '@/components/dashboard/overview/total-customers';
-import { TotalProfit } from '@/components/dashboard/overview/total-profit';
-import { Traffic } from '@/components/dashboard/overview/traffic';
+import { Budget } from '@/components/pages/overview/budget';
+import { LatestOrders } from '@/components/pages/overview/latest-orders';
+import { LatestProducts } from '@/components/pages/overview/latest-products';
+import { Sales } from '@/components/pages/overview/sales';
+import { TasksProgress } from '@/components/pages/overview/tasks-progress';
+import { TotalCustomers } from '@/components/pages/overview/total-customers';
+import { TotalProfit } from '@/components/pages/overview/total-profit';
+import { Traffic } from '@/components/pages/overview/traffic';
 
 export const metadata = { title: `Overview | Dashboard | ${config.site.name}` } satisfies Metadata;
 
