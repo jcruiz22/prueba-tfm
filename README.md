@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## [Devias Kit - React](https://material-kit-react.devias.io/)
 
 ![license](https://img.shields.io/badge/license-MIT-blue.svg)
@@ -88,3 +89,6 @@ Within the download you'll find the following directories and files:
 ## Contact Us
 
 - Email Us: support@deviasio.zendesk.com
+=======
+# prueba-tfm
+>>>>>>> origin/main
